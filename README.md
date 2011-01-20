@@ -3,6 +3,7 @@
 To use it, you'll need a JavaScript/Rhino-enabled edition of Prudence.  You'll need to install the `proose` source in your instance's `applications` directory, and install the following dependencies in the `libraries` directory.
 
 * Goose: http://github.com/jiminoc/goose (can be built with Maven)
+* JSoup: download jar here: http://jsoup.org/packages/jsoup-1.4.1.jar
 * (Optional) Google Translate Java API: download jar here: http://code.google.com/p/google-api-translate-java/downloads/list
 
 Once it's up and running, it will return a JSON representation of the main text of the URI you give it within an HTTP POST containing your request data in JSON format:
