@@ -9,8 +9,8 @@ try {
 
 var Goose = Goose || function() {
 	var Public = {
-	    defaultConfig: null,
-	    contentExtractor: null,
+	    config: null,
+	    extractor: null,
 		Extractor: function() {
     		this.extract = function(uri, srclang, tlang) {
                 try {
@@ -38,26 +38,32 @@ var Goose = Goose || function() {
 	    }
 	}
 	
-    // Private construction
+    // Initialize config
     Public.config = application.globals.get('proose.config')
-    Public.extractor = application.globals.get('proose.extractor')
-    Public.translate = application.globals.get('proose.translate')    
     if (!Public.config) {
-        application.globals.put('proose.config', new Configuration())
-        Public.config = application.globals.get('proose.config')
-        Public.config.setEnableImageFetching(false)
-        application.globals.put('proose.extractor', new ContentExtractor(Public.config))        
-        Public.extractor = application.globals.get('proose.extractor')
-        try {
-            application.globals.put('proose.translate', new Translate())
-            Public.translate = application.globals.get('proose.translate')
-            Public.translate.setHttpReferrer(application.globals.get('proose.settings.httpReferrer'))
-        } catch(error) {
-            // nothing
-        }
+        var config = new Configuration()
+        config.setEnableImageFetching(false)
+        Public.config = application.getGlobal('proose.config', config)
     }
-    // End private construction
-    
+
+    // Initialize extractor
+    Public.extractor = application.globals.get('proose.extractor')
+    if (!Public.extractor && Public.config) {
+        Public.extractor = application.getGlobal('proose.extractor', new ContentExtractor(Public.config))
+    }
+
+    // Initialize translate (optional)
+    Public.translate = application.globals.get('proose.translate')
+    if (!Public.translate) {
+        try {
+            var translate = new Translate()
+            translate.setHttpReferrer(application.globals.get('proose.settings.httpReferrer'))
+            Public.translate = application.getGlobal('proose.translate', translate)
+        }
+        catch (x) {
+            // translate is optional
+        }
+    }    
 	return Public
 }()
 

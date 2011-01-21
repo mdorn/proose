@@ -1,4 +1,4 @@
-document.execute('json2/')
+importClass(com.mongodb.rhino.JSON)
 document.execute('goose/')
 
 function handleInit(conversation) {
@@ -20,7 +20,7 @@ function handlePost(conversation) {
     //    -d '{"uri": "http://threecrickets.com/prudence/legal/", "source_language": "en", "target_language": "fr"}' \
     //    http://localhost:8080/proose/page/
     var text = conversation.entity.text
-    var json = JSON.parse(String(text))
+    var json = JSON.from(String(text))
 	var uri = json.uri
 	var srclang = json.source_language || null
 	var tlang = json.target_language || null
@@ -29,6 +29,6 @@ function handlePost(conversation) {
     if (!result) {
         return 404
     } else {
-        return JSON.stringify(result, null, 4)
+        return JSON.to(result, true)
     }
 }
