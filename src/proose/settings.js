@@ -8,3 +8,4 @@ applicationHomeURL = 'http://github.com/mdorn/proose'
 applicationContactEmail = 'matt.dorn@gmail.com'
 
 predefinedGlobals['proose.settings.httpReferrer'] = 'http://example.com'
+predefinedGlobals['proose.settings.namespace'] = 'proose'

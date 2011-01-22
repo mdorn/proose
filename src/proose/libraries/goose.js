@@ -6,6 +6,7 @@ try {
 } catch(error) {
     application.logger.warn("Google Translate Java API not found: Translation feature unavailable.")
 }
+document.execute('register/')
 
 var Goose = Goose || function() {
 	var Public = {
@@ -21,7 +22,7 @@ var Goose = Goose || function() {
                         "text": String(StringEscapeUtils.unescapeHtml(article.getCleanedArticleText()))
                     }
                 } catch(error) {
-                    application.logger.info(error + ": " + uri)
+                    application.logger.debug(error + ": " + uri)
                     return null
                 }
                 if (srclang && tlang) {
@@ -37,33 +38,14 @@ var Goose = Goose || function() {
     		}
 	    }
 	}
-	
-    // Initialize config
-    Public.config = application.globals.get('proose.config')
-    if (!Public.config) {
-        var config = new Configuration()
-        config.setEnableImageFetching(false)
-        Public.config = application.getGlobal('proose.config', config)
+    // Initialize
+    Public.config = register(Configuration, null, {'setEnableImageFetching': false})
+    Public.extractor = register(ContentExtractor, Public.config)
+    try {
+        Public.translate = register(Translate, null, {'setHttpReferrer': application.globals.get('proose.settings.httpReferrer')})
+    } catch(error) {
+        // Google Translate library is optional
     }
-
-    // Initialize extractor
-    Public.extractor = application.globals.get('proose.extractor')
-    if (!Public.extractor && Public.config) {
-        Public.extractor = application.getGlobal('proose.extractor', new ContentExtractor(Public.config))
-    }
-
-    // Initialize translate (optional)
-    Public.translate = application.globals.get('proose.translate')
-    if (!Public.translate) {
-        try {
-            var translate = new Translate()
-            translate.setHttpReferrer(application.globals.get('proose.settings.httpReferrer'))
-            Public.translate = application.getGlobal('proose.translate', translate)
-        }
-        catch (x) {
-            // translate is optional
-        }
-    }    
 	return Public
 }()
 
