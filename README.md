@@ -11,7 +11,7 @@ implementation of [Readability.js](http://code.google.com/p/arc90labs-readabilit
 Goose seems to be the best one in any language; Proose exposes it via a web services API
 written primarily in a few lines of server-side JavaScript running on top of Prudence.
 
-To use it, you'll need the JavaScript-enabled edition of Prudence.  You'll need to install the `proose` source in your instance's `applications` directory, and install or link the included jar dependencies (located in `libraries` in the repo) in the instance's `libraries` directory.  These are the dependencies:
+To use it, you'll need the JavaScript-enabled edition of Prudence (v1.1).  You'll need to install the `proose` source in your instance's `applications` directory, and install or link the included jar dependencies (located in `libraries` in the repo) in the instance's `libraries` directory.  These are the dependencies:
 
 * Goose: (http://github.com/jiminoc/goose)
 * MongoDB/Rhino integration (http://code.google.com/p/mongodb-rhino/) (Note: used only for the included JSON class. Prior to version 1.1, these jars were included in Prudence, but were since moved out of it.)
