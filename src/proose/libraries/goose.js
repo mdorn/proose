@@ -4,16 +4,16 @@ try {
     importClass(com.google.api.translate.Language)
     importClass(com.google.api.translate.Translate)
 } catch(error) {
-    application.logger.warn("Google Translate Java API not found: Translation feature unavailable.")
+    application.logger.warning("Google Translate Java API not found: Translation feature unavailable.")
 }
 document.execute('register/')
 
 var Goose = Goose || function() {
-	var Public = {
-	    config: null,
-	    extractor: null,
-		Extractor: function() {
-    		this.extract = function(uri, srclang, tlang) {
+    var Public = {
+        config: null,
+        extractor: null,
+        Extractor: function() {
+            this.extract = function(uri, srclang, tlang) {
                 try {
                     // use Goose to extract article title and main text
                     var article = Public.extractor.extractContent(String(uri))
@@ -35,9 +35,9 @@ var Goose = Goose || function() {
                     }
                 }
                 return retval
-    		}
-	    }
-	}
+            }
+        }
+    }
     // Initialize
     Public.config = register(Configuration, null, {'setEnableImageFetching': false})
     Public.extractor = register(ContentExtractor, Public.config)
@@ -46,6 +46,6 @@ var Goose = Goose || function() {
     } catch(error) {
         // Google Translate library is optional
     }
-	return Public
+    return Public
 }()
 
