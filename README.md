@@ -4,17 +4,19 @@ library.
 
 Proose also has limited (5,000 character maximum) support for the 
 unofficial [Google Translate Java API](http://code.google.com/p/google-api-translate-java/).  
-It is based on [Prudence](http://threecrickets.com/prudence/), the 
+
+Proose is based on [Prudence](http://threecrickets.com/prudence/), the 
 RESTful web platform for the JVM.  It was inspired by the need for a server-side
 implementation of [Readability.js](http://code.google.com/p/arc90labs-readability/)  
 Goose seems to be the best one in any language; Proose exposes it via a web services API
 written primarily in a few lines of server-side JavaScript running on top of Prudence.
 
-To use it, you'll need a JavaScript/Rhino-enabled edition of Prudence.  You'll need to install the `proose` source in your instance's `applications` directory, and install the following dependencies in the `libraries` directory.
+To use it, you'll need the JavaScript-enabled edition of Prudence.  You'll need to install the `proose` source in your instance's `applications` directory, and install or link the included jar dependencies (located in `libraries` in the repo) in the instance's `libraries` directory.  These are the dependencies:
 
-* Goose: http://github.com/jiminoc/goose (can be built with Maven)
-* JSoup: download jar here: http://jsoup.org/packages/jsoup-1.4.1.jar
-* (Optional) Google Translate Java API: download jar here: http://code.google.com/p/google-api-translate-java/downloads/list
+* Goose: (http://github.com/jiminoc/goose)
+* MongoDB/Rhino integration (http://code.google.com/p/mongodb-rhino/) (Note: used only for the included JSON class. Prior to version 1.1, these jars were included in Prudence, but were since moved out of it.)
+* JSoup: (http://jsoup.org/packages/jsoup-1.4.1.jar)
+* (Optional) Google Translate Java API: (http://code.google.com/p/google-api-translate-java/downloads/list)
 
 Once it's up and running, it will return a JSON representation of the main text 
 of the URI you give it within an HTTP POST containing your request data in JSON format:
